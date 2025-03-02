@@ -1,0 +1,17 @@
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Slot Number (Read-Only) -->
+    <label for="id_slot_number">Slot Number:</label>
+    <input type="text" id="id_slot_number" name="slot_number" value="{{ form.slot_number.value }}" readonly>
+
+    <!-- Cameras (Read-Only) -->
+    <label for="id_cameras">Selected Cameras:</label>
+    <input type="text" id="id_cameras" name="cameras" value="{{ form.cameras.value }}" readonly>
+
+    <!-- Editable Title -->
+    <label for="id_title">Title:</label>
+    {{ form.title }}
+
+    <button type="submit">Save Changes</button>
+</form>

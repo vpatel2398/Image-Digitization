@@ -1,0 +1,40 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+
+{% block content %}
+    <h2>Photo Digitizer</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Photo</button>
+    </form>
+
+    <h3>Photo List</h3>
+    <table border="1">
+        <tr>
+            {% comment %} <th>ID</th> {% endcomment %}
+            <th>Slot Number</th>
+            <th>Title</th>
+            <th>Selected Cameras</th>
+            <th>Time Left (minutes)</th>
+            <th>Actions</th>
+        </tr>
+        {% for photo in photos %}
+        <tr>
+            {% comment %} <td>{{ photo.id }}</td> {% endcomment %}
+            <td>{{ photo.slot_number }}</td>
+            <td>{{ photo.title }}</td>
+            <td>{{ photo.cameras|join:", " }}</td>  <!-- Join cameras list into a readable format -->
+            <td>{{ photo.time_left }}</td>
+            <td>
+                <a href="{% url 'edit_photo' photo.id %}"><button>Edit</button></a>
+                <a href="{% url 'delete_photo' photo.id %}" onclick="return confirm('Are you sure?');"><button>Delete</button></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No photos added yet.</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
